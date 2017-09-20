@@ -1,8 +1,6 @@
-# Mindmatch
+# MindMatch
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/mindmatch`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+MindMatch api client library for Ruby
 
 ## Installation
 
@@ -22,7 +20,22 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+require 'mindmatch'
+
+mindmatch = MindMatch.new(token: ENV['MINDMATCH_TOKEN'])
+match_id = mindmatch.create_match(
+  talents: [{"id" => 2, "name" => "John Snow", "email" => "js@winterfeld.uk",
+    "profileUrls" => ["https://linkedin.com/in/johnsnow"], "skills" => ["Javascript", "ruby"]}
+  ],
+  position: {"mame" => "FE Developer", "description" => "Building a Ember aplication on a rails backend"}
+)
+#=> '6906ec3d-024d-43c6-a1cf-9b102eec4fb1'
+mindmatch.query_match(id: match_id)
+#=> {"id"=>"6906ec3d-024d-43c6-a1cf-9b102eec4fb1", "status"=>"fulfilled", "results"=>[{"score"=>0.1436655436}]}
+```
+
+
 
 ## Development
 
@@ -32,7 +45,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/mindmatch. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/mindmatch/mindmatch-ruby. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
@@ -40,4 +53,4 @@ The gem is available as open source under the terms of the [MIT License](http://
 
 ## Code of Conduct
 
-Everyone interacting in the Mindmatch project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/mindmatch/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Mindmatch project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/mindmatch/mindmatch-ruby/blob/master/CODE_OF_CONDUCT.md).

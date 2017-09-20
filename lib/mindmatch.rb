@@ -1,5 +1,1 @@
-require "mindmatch/version"
-
-module Mindmatch
-  # Your code goes here...
-end
+require "mind_match"
