@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe MindMatch do
-  let(:token) { 'XvtLRvsxNr4tOpmVpVFNWkJrxyc24hkjZA' }
+  let(:token) { ENV.fetch('MINDMATCH_TOKEN', 'yourtokencomeshere') }
   let(:endpoint) { 'https://staging-mindmatch-api.herokuapp.com/graphql' }
   subject(:mindmatch) { described_class.new(token: token, endpoint: endpoint) }
 

@@ -8,7 +8,7 @@ WebMock.disable_net_connect!(allow_localhost: true)
 VCR.configure do |config|
   config.hook_into :webmock
   config.cassette_library_dir = "spec/vcr_cassettes"
-  config.filter_sensitive_data("token [^\"]+", "token yourtokencomeshere")
+  config.filter_sensitive_data("Bearer [^\"]+", "Bearer yourtokencomeshere")
 end
 
 RSpec.configure do |config|

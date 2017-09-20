@@ -18,7 +18,7 @@ http_interactions:
         {\n          id\n        }\n      }\n"}'
     headers:
       Authorization:
-      - Bearar XvtLRvsxNr4tOpmVpVFNWkJrxyc24hkjZA
+      - Bearer yourtokencomeshere
       Accept:
       - application/json
       Content-Type:

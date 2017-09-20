@@ -8,7 +8,7 @@ module MindMatch
 
     def initialize(token:, endpoint: DEFAULT_ENDPOINT)
       @conn = Faraday.new(:url => endpoint, :headers => {
-        "Authorization": "Bearar #{token}",
+        "Authorization": "Bearer #{token}",
         "Accept": "application/json",
         "Content-Type": "application/json"
       })
