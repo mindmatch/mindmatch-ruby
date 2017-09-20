@@ -1,0 +1,77 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://staging-mindmatch-api.herokuapp.com/graphql
+    body:
+      encoding: UTF-8
+      string: '{"query":"        mutation createMatch {\n          match: createMatch(\n            input:
+        {\n              data: {\n                companies: [{\n                  name:
+        \"company\",\n                  location: [\"location\"],\n                  url:
+        \"http://example.com\",\n                  profileUrls: [\"https://github.com/honeypotio\",
+        \"https://linkedin.com/company/honeypot\"],\n                  positions:
+        [{ refId: \"324\", name: \"Elixir Frontend Developer\", description: \"4+
+        years experience with Ruby on Rails and API''s, and elixir JS\" }]\n                }],\n                people:
+        [{ refId: \"2\", name: \"Hugo Duksis\", email: \"hd@diaoma.com\", profileUrls:
+        [\"https://linkedin.com/in/duksis\", \"https://github.com/duksis\", \"https://twitter.com/duksis\"],
+        resumeUrl: \"\", skills: [\"Javascript\", \"ruby\", \"elixir\", \"git\"] }]\n              }\n            }\n          )
+        {\n            id\n          }\n        }\n"}'
+    headers:
+      Authorization:
+      - Bearar XvtLRvsxNr4tOpmVpVFNWkJrxyc24hkjZA
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.13.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Connection:
+      - keep-alive
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '91'
+      Etag:
+      - W/"5b-BG13FMBVat/SCf+UU5hEjy1sWzM"
+      Vary:
+      - Accept-Encoding
+      Date:
+      - Wed, 20 Sep 2017 09:33:26 GMT
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "data": {
+            "match": {
+              "id": "81e1be00-c60b-4cd7-acd1-3aaaf41703f0"
+            }
+          }
+        }
+    http_version: 
+  recorded_at: Wed, 20 Sep 2017 09:36:03 GMT
+recorded_with: VCR 3.0.3
