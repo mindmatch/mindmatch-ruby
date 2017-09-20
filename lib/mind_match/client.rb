@@ -62,7 +62,7 @@ module MindMatch
         req.body = JSON.generate(query: query_match_score)
       end
       response = JSON.parse(raw_response.body)
-      response['match']['data']['results']['score']
+      response['data']['match']['data']['results']
     end
 
     private

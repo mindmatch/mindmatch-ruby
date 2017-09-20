@@ -5,7 +5,7 @@ http_interactions:
     uri: https://staging-mindmatch-api.herokuapp.com/graphql
     body:
       encoding: UTF-8
-      string: '{"query":"      query getMatch {\n        match: getMatch(id: \"14288875-bf0f-462a-90b5-eb83a209cf02\")
+      string: '{"query":"      query getMatch {\n        match: getMatch(id: \"6906ec3d-024d-43c6-a1cf-9b102eec4fb1\")
         {\n          id\n          status\n          data {\n            results {\n              score\n            }\n          }\n        }\n      }\n"}'
     headers:
       Authorization:
@@ -59,12 +59,18 @@ http_interactions:
         {
           "data": {
             "match": {
-              "id": "14288875-bf0f-462a-90b5-eb83a209cf02",
-              "status": null,
-              "data": null
+              "id": "6906ec3d-024d-43c6-a1cf-9b102eec4fb1",
+              "status": "fulfilled",
+              "data": {
+                "results": [
+                  {
+                    "score": 0.1436655436
+                  }
+                ]
+              }
             }
           }
         }
-    http_version: 
-  recorded_at: Mon, 18 Sep 2017 16:18:41 GMT
+    http_version:
+  recorded_at: Tue, 19 Sep 2017 17:09:15 GMT
 recorded_with: VCR 3.0.3

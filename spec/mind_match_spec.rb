@@ -35,14 +35,14 @@ RSpec.describe MindMatch do
     }
 
     it 'returns an id for a list of talents & position' do
-      VCR.use_cassette("mind_match/single_talent") do
-        expect(mindmatch.create_match(talents: talents, position: position)).to eql('14288875-bf0f-462a-90b5-eb83a209cf02')
+      VCR.use_cassette("single_talent") do
+        expect(mindmatch.create_match(talents: talents, position: position)).to eql('6906ec3d-024d-43c6-a1cf-9b102eec4fb1')
       end
     end
 
     it 'returns a score for a match id' do
-      VCR.use_cassette("mind_match/query_match") do
-        expect(mindmatch.query_match(id: '14288875-bf0f-462a-90b5-eb83a209cf02').first['score']).to eql(0.5)
+      VCR.use_cassette("query_match") do
+        expect(mindmatch.query_match(id: '6906ec3d-024d-43c6-a1cf-9b102eec4fb1').first['score']).to eql(0.1436655436)
       end
     end
   end
