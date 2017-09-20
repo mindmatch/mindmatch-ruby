@@ -62,7 +62,9 @@ module MindMatch
         req.body = JSON.generate(query: query_match_score)
       end
       response = JSON.parse(raw_response.body)
-      response['data']['match']['data']['results']
+      match = response.dig('data', 'match')
+      match = match['data'] if match.has_key?('data') # FIX: remove data namespece in mindmatch api
+      match
     end
 
     private

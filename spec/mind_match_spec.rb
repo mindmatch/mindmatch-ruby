@@ -42,7 +42,7 @@ RSpec.describe MindMatch do
 
     it 'returns a score for a match id' do
       VCR.use_cassette("query_match") do
-        expect(mindmatch.query_match(id: '6906ec3d-024d-43c6-a1cf-9b102eec4fb1').first['score']).to eql(0.1436655436)
+        expect(mindmatch.query_match(id: '6906ec3d-024d-43c6-a1cf-9b102eec4fb1')['results'].first['score']).to eql(0.1436655436)
       end
     end
   end
