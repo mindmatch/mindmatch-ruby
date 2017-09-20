@@ -1,5 +1,13 @@
 sudo: false
 language: ruby
 rvm:
-  - 2.3.4
+- 2.3.4
 before_install: gem install bundler -v 1.15.3
+deploy:
+  provider: rubygems
+  api_key:
+    secure: gcFsDKucukPtOeMMdhyBqdmvEz1Trtm/2ydVsJNR8KED/yR7vunfXhtC2/z1ICwrpiUQUwMGQIjx0Odi9gAhuWRL5tj4MHpqwa7CRCgj+MLJFQFAAR7kTpO5MLDPBmV1PO5fZFkOPEu5tQB0LlW1rQSWy1fZW3E1Zsej5OnCqr52j/qIT2wffyTFSnnF8+ijX5xbJ6UMVTXMrLQ8yPZwye5pJU7b+TZajKUFj3GAKw857FQRfEY3ta1S8QQ8dyO+pq/Mp8/y2GsX2owvM4yakehXH3YYe2U8bXuRqaPM5+HU9ndKR+XohUNa7zVoy4kdhNhEMW+eWFHHM8OQ0yMfaaD8EJDpPeKYAxTp7gLBxZckJGAQ+Q5vPubKSjLrnoi7EhpDJfApdStTFYwMLQ9MBX7rhyrz2WZ5+KrZBmuf1LcWH6DIs/+A4A8UJrY5nM/TwfwdgewLr2SX0KUCqnn40zFiZu7uEU0EPzCKgOEYBK+9rtCa33r82oZ7M+xdz2CsgJTqgOcc2J3EOATWjHCDhlD8K/co12ED51NvR06T2UnQwKaRPeHjTqmUFVLmh6wMxyUSwC20q1JMM00mIK0MkxroDpNlsu9FF8ekTGbe7RJDxaqsqGQBsN2gFjT01I4yBLv/M1JS81M62JeyLcTJbG21m2Qpb/4U1JrO9bi49vU=
+  gem: mindmatch
+  on:
+    tags: true
+    repo: mindmatch/mindmatch-ruby
