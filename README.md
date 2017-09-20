@@ -1,4 +1,4 @@
-# MindMatch
+# MindMatch [![Build Status](https://travis-ci.org/mindmatch/mindmatch-ruby.svg?branch=master)](https://travis-ci.org/mindmatch/mindmatch-ruby)
 
 MindMatch api client library for Ruby
 
