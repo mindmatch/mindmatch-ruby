@@ -1,3 +1,3 @@
 module MindMatch
-  VERSION = "0.0.1-alpha3"
+  VERSION = "0.0.1-beta"
 end
