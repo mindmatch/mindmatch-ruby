@@ -14,27 +14,14 @@ module MindMatch
       @conn = Faraday.new(url: uri.to_s, headers: headers)
     end
 
-    def create_match(talents:, position:)
-      create_match_mutation = <<-GRAPHQL
-        mutation createMatch {
-          match: createMatch(
-            input: {
-              data: {
-                companies: [#{companiesql(position)}],
-                people: [#{talents.map(&method(:talentql)).join(',')}]
-              }
-            }
-          ) {
-            id
-          }
-        }
-      GRAPHQL
-
-      raw_response = conn.post do |req|
-        req.body = JSON.generate(query: create_match_mutation)
-      end
-      response = JSON.parse(raw_response.body)
-      response['data']['match']['id']
+    def create_match(talent: nil, talents: [], position: nil, positions: [])
+      talents << talent
+      talents = talents.compact
+      positions << position
+      positions = positions.compact
+      raise ArgumentError, "missing keyword: talents" if talents.empty?
+      raise ArgumentError, "missing keyword: positions" if positions.empty?
+      create_matches(talents: talents, positions: positions)
     end
 
     def query_match(id:)
@@ -74,6 +61,29 @@ module MindMatch
     private
     attr_reader :conn, :token
 
+    def create_matches(talents:, positions:)
+      create_match_mutation = <<-GRAPHQL
+        mutation createMatch {
+          match: createMatch(
+            input: {
+              data: {
+                companies: [#{positions.map(&method(:companiesql)).join(',')}],
+                people: [#{talents.map(&method(:talentql)).join(',')}]
+              }
+            }
+          ) {
+            id
+          }
+        }
+      GRAPHQL
+
+      raw_response = conn.post do |req|
+        req.body = JSON.generate(query: create_match_mutation)
+      end
+      response = JSON.parse(raw_response.body)
+      response['data']['match']['id']
+    end
+
     def positionql(position)
       <<-EOS.split.join(" ")
         {
@@ -96,6 +106,7 @@ module MindMatch
           }
         EOS
       else
+        warn "[DEPRECATION] providing postition without company information is deprecated."
         <<-EOS.split.join(" ")
           {
             name: "company",
