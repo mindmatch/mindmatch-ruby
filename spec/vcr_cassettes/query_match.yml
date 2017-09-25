@@ -2,20 +2,23 @@
 http_interactions:
 - request:
     method: get
-    uri: https://staging-mindmatch-api.herokuapp.com/graphql
+    uri: https://staging-api.mindmatch.ai/graphql
     body:
       encoding: UTF-8
-      string: '{"query":"      query getMatch {\n        match: getMatch(id: \"6906ec3d-024d-43c6-a1cf-9b102eec4fb1\")
-        {\n          id\n          status\n          data {\n            results {\n              score\n            }\n          }\n        }\n      }\n"}'
+      string: '{"query":"        query getMatch {\n          match: getMatch(id: \"6906ec3d-024d-43c6-a1cf-9b102eec4fb1\")
+        {\n            id\n            status\n            data {\n              results
+        {\n                score\n                personId\n                positionId\n              }\n              people
+        {\n                id\n                refId\n              }\n              positions
+        {\n                id\n                refId\n              }\n            }\n          }\n        }\n"}'
     headers:
       Authorization:
-      - Bearer yourtokencomeshere
+      - Bearer XvtLRvsxNr4tOpmVpVFNWkJrxyc24hkjZA
       Accept:
       - application/json
       Content-Type:
       - application/json
       User-Agent:
-      - Faraday v0.12.2
+      - Faraday v0.13.1
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
@@ -44,13 +47,13 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '234'
+      - '637'
       Etag:
-      - W/"ea-lEuqVXCiUNtmkKTExROVRKtpA9Q"
+      - W/"27d-SCfDV++tLf+dGbiQ19Hf+MfMdOc"
       Vary:
       - Accept-Encoding
       Date:
-      - Tue, 19 Sep 2017 17:06:41 GMT
+      - Mon, 25 Sep 2017 14:36:37 GMT
       Via:
       - 1.1 vegur
     body:
@@ -64,13 +67,27 @@ http_interactions:
               "data": {
                 "results": [
                   {
-                    "score": 0.1436655436
+                    "score": 0.1436655436,
+                    "personId": "7dedffb3-c41e-4046-aa3d-73979d7ec1c2",
+                    "positionId": "6214ab8d26e3f79571d922ca269d5743"
+                  }
+                ],
+                "people": [
+                  {
+                    "id": "7dedffb3-c41e-4046-aa3d-73979d7ec1c2",
+                    "refId": "2"
+                  }
+                ],
+                "positions": [
+                  {
+                    "id": "6214ab8d26e3f79571d922ca269d5743",
+                    "refId": "324"
                   }
                 ]
               }
             }
           }
         }
-    http_version:
-  recorded_at: Tue, 19 Sep 2017 17:09:15 GMT
+    http_version: 
+  recorded_at: Mon, 25 Sep 2017 14:36:37 GMT
 recorded_with: VCR 3.0.3

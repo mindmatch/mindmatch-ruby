@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://staging-mindmatch-api.herokuapp.com/graphql
+    uri: https://staging-api.mindmatch.ai/graphql
     body:
       encoding: UTF-8
       string: '{"query":"      mutation createMatch {\n        match: createMatch(\n          input:
