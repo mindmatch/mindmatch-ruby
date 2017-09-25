@@ -20,13 +20,7 @@ module MindMatch
           match: createMatch(
             input: {
               data: {
-                companies: [{
-                  name: "company",
-                  location: ["location"],
-                  url: "http://example.com",
-                  profileUrls: ["https://github.com/honeypotio", "https://linkedin.com/company/honeypot"],
-                  positions: [#{positionql(position)}]
-                }],
+                companies: [#{companiesql(position)}],
                 people: [#{talents.map(&method(:talentql)).join(',')}]
               }
             }
@@ -88,6 +82,30 @@ module MindMatch
           description: "#{position['description']}"
         }
       EOS
+    end
+
+    def companiesql(position)
+      if position.has_key?("positions")
+        <<-EOS.split.join(" ")
+          {
+            name: "#{position['name']}",
+            location: #{[position['location']].flatten},
+            url: "#{position['url']}",
+            profileUrls: #{position['profileUrls']},
+            positions: [#{position['positions'].map(&method(:positionql)).join(', ')}]
+          }
+        EOS
+      else
+        <<-EOS.split.join(" ")
+          {
+            name: "company",
+            location: ["location"],
+            url: "http://example.com",
+            profileUrls: ["https://github.com/honeypotio", "https://linkedin.com/company/honeypot"],
+            positions: [#{positionql(position)}]
+          }
+        EOS
+      end
     end
 
     def talentql(tal)

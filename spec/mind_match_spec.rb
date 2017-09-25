@@ -45,5 +45,26 @@ RSpec.describe MindMatch do
         expect(mindmatch.query_match(id: '6906ec3d-024d-43c6-a1cf-9b102eec4fb1')['results'].first['score']).to eql(0.1436655436)
       end
     end
+
+    context 'position with company data' do
+      let(:position) { {
+        "name" => "MindMatch GmbH",
+        "location" => "Berlin, Germany",
+        "url" => "https://mindmatch.ai",
+        "profileUrls" => ["https://github.com/mindmatch"],
+        "positions" => [{
+            "id" => 324,
+            "name" => "Elixir Frontend Developer",
+            "description" => "4+ years experience with Ruby on Rails and API's, and elixir JS"
+          }]
+        }
+      }
+
+      it 'returns an id for a list of talents & position' do
+        VCR.use_cassette("create_match_with_company_data") do
+          expect(mindmatch.create_match(talents: talents, position: position)).to eql('f6645b3c-c504-4755-a9fa-1f74354a51f5')
+        end
+      end
+    end
   end
 end
