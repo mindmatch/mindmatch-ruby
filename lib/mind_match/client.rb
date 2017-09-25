@@ -4,14 +4,14 @@ require 'json'
 module MindMatch
   class Client
 
-    DEFAULT_ENDPOINT = 'https://api.mindmatch.ai/graphql'
+    DEFAULT_ENDPOINT = 'https://api.mindmatch.ai'
+    PATH = '/graphql'
 
     def initialize(token:, endpoint: DEFAULT_ENDPOINT)
-      @conn = Faraday.new(:url => endpoint, :headers => {
-        "Authorization": "Bearer #{token}",
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      })
+      @token = token
+      uri = URI(endpoint)
+      uri.path = PATH
+      @conn = Faraday.new(url: uri.to_s, headers: headers)
     end
 
     def create_match(talents:, position:)
@@ -68,7 +68,7 @@ module MindMatch
     end
 
     private
-    attr_reader :conn
+    attr_reader :conn, :token
 
     def positionql(position)
       <<-EOS.split.join(" ")
@@ -91,6 +91,14 @@ module MindMatch
           skills: #{tal['skills']}
         }
       EOS
+    end
+
+    def headers
+      {
+        "Authorization": "Bearer #{token}",
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      }
     end
   end
 end
