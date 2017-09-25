@@ -14,14 +14,14 @@ module MindMatch
       @conn = Faraday.new(url: uri.to_s, headers: headers)
     end
 
-    def create_match(talent: nil, talents: [], position: nil, positions: [])
+    def create_match(talent: nil, talents: [], position: nil, positions: [], companies: [])
       talents << talent
       talents = talents.compact
       positions << position
-      positions = positions.compact
+      companies = (companies + positions).compact
       raise ArgumentError, "missing keyword: talents" if talents.empty?
-      raise ArgumentError, "missing keyword: positions" if positions.empty?
-      create_matches(talents: talents, positions: positions)
+      raise ArgumentError, "missing keyword: companies" if companies.empty?
+      create_matches(talents: talents, companies: companies)
     end
 
     def query_match(id:)
@@ -61,13 +61,13 @@ module MindMatch
     private
     attr_reader :conn, :token
 
-    def create_matches(talents:, positions:)
+    def create_matches(talents:, companies:)
       create_match_mutation = <<-GRAPHQL
         mutation createMatch {
           match: createMatch(
             input: {
               data: {
-                companies: [#{positions.map(&method(:companiesql)).join(',')}],
+                companies: [#{companies.map(&method(:companiesql)).join(',')}],
                 people: [#{talents.map(&method(:talentql)).join(',')}]
               }
             }
@@ -94,15 +94,15 @@ module MindMatch
       EOS
     end
 
-    def companiesql(position)
-      if position.has_key?("positions")
+    def companiesql(company)
+      if company.has_key?("positions")
         <<-EOS.split.join(" ")
           {
-            name: "#{position['name']}",
-            location: #{[position['location']].flatten},
-            url: "#{position['url']}",
-            profileUrls: #{position['profileUrls']},
-            positions: [#{position['positions'].map(&method(:positionql)).join(', ')}]
+            name: "#{company['name']}",
+            location: #{[company['location']].flatten},
+            url: "#{company['url']}",
+            profileUrls: #{company['profileUrls']},
+            positions: [#{company['positions'].map(&method(:positionql)).join(', ')}]
           }
         EOS
       else
@@ -113,7 +113,7 @@ module MindMatch
             location: ["location"],
             url: "http://example.com",
             profileUrls: ["https://github.com/honeypotio", "https://linkedin.com/company/honeypot"],
-            positions: [#{positionql(position)}]
+            positions: [#{positionql(company)}]
           }
         EOS
       end
