@@ -52,6 +52,16 @@ module MindMatch
             data {
               results {
                 score
+                personId
+                positionId
+              }
+              people {
+                id
+                refId
+              }
+              positions {
+                id
+                refId
               }
             }
           }
