@@ -13,7 +13,7 @@ RSpec.describe MindMatch do
     let(:talents) { [{
         "id" => 2,
         "name" => "Hugo Duksis",
-        "email" => "hd@diaoma.com",
+        :email => "hd@diaoma.com",
         "profileUrls" => [
           "https://linkedin.com/in/duksis",
           "https://github.com/duksis",

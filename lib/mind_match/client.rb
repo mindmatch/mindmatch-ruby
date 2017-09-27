@@ -91,6 +91,7 @@ module MindMatch
     end
 
     def positionql(position)
+      position = stringify_keys(position)
       <<-EOS.split.join(" ")
         {
           refId: "#{position['id']}",
@@ -101,13 +102,14 @@ module MindMatch
     end
 
     def companiesql(company)
+      company = stringify_keys(company)
       if company.has_key?("positions")
         <<-EOS.split.join(" ")
           {
             name: "#{company['name']}",
             location: #{[company['location']].flatten},
             url: "#{company['url']}",
-            profileUrls: #{company['profileUrls']},
+            profileUrls: #{company['profileUrls'] || []},
             positions: [#{company['positions'].map(&method(:positionql)).join(', ')}]
           }
         EOS
@@ -126,14 +128,15 @@ module MindMatch
     end
 
     def talentql(tal)
+      tal = stringify_keys(tal)
       <<-EOS.split.join(" ")
         {
           refId: "#{tal['id']}",
           name: "#{tal['name']}",
           email: "#{tal['email']}",
-          profileUrls: #{tal['profileUrls']},
+          profileUrls: #{tal['profileUrls'] || []},
           resumeUrl: "#{tal['resumeUrl']}",
-          skills: #{tal['skills']}
+          skills: #{tal['skills'] || []}
         }
       EOS
     end
@@ -154,6 +157,10 @@ module MindMatch
         when 401 then raise(Unauthorized, raw_response.body)
         else raise(UnexpectedError, raw_response.status, raw_response.body)
       end
+    end
+
+    def stringify_keys(hash)
+      JSON.parse(JSON.generate(hash))
     end
   end
 end
