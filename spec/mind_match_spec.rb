@@ -66,5 +66,29 @@ RSpec.describe MindMatch do
         end
       end
     end
+
+    context 'invalid data' do
+      let(:talents) { [{
+          "id" => 2,
+          "name" => "Hugo Duksis",
+          "skills" => [
+            "Javascript",
+            "ruby",
+            "elixir",
+            "git"
+          ]
+        }]
+      }
+      let(:position) { {
+          "id" => 324
+        }
+      }
+
+      it 'raise exception with explanation' do
+        VCR.use_cassette("create_match_invalid_data") do
+          expect { mindmatch.create_match(talents: talents, position: position) }.to raise_error(MindMatch::ArgumentError)
+        end
+      end
+    end
   end
 end

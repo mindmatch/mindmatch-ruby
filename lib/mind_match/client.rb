@@ -2,6 +2,10 @@ require 'faraday'
 require 'json'
 
 module MindMatch
+  class ArgumentError < StandardError; end
+  class Unauthorized < StandardError; end
+  class UnexpectedError < StandardError; end
+
   class Client
 
     DEFAULT_ENDPOINT = 'https://api.mindmatch.ai'
@@ -52,6 +56,7 @@ module MindMatch
       raw_response = conn.get do |req|
         req.body = JSON.generate(query: query_match_score)
       end
+      handle_error(raw_response)
       response = JSON.parse(raw_response.body)
       match = response.dig('data', 'match')
       match = match['data'] if match.has_key?('data') # FIX: remove data namespece in mindmatch api
@@ -80,6 +85,7 @@ module MindMatch
       raw_response = conn.post do |req|
         req.body = JSON.generate(query: create_match_mutation)
       end
+      handle_error(raw_response)
       response = JSON.parse(raw_response.body)
       response['data']['match']['id']
     end
@@ -138,6 +144,16 @@ module MindMatch
         "Accept": "application/json",
         "Content-Type": "application/json"
       }
+    end
+
+    def handle_error(raw_response)
+      return if raw_response.status.to_s =~ /2\d\d/
+
+      case raw_response.status
+        when 400 then raise(ArgumentError, raw_response.body)
+        when 401 then raise(Unauthorized, raw_response.body)
+        else raise(UnexpectedError, raw_response.status, raw_response.body)
+      end
     end
   end
 end
