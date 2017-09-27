@@ -1,0 +1,80 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://staging-api.mindmatch.ai/graphql
+    body:
+      encoding: UTF-8
+      string: '{"query":"        mutation createMatch {\n          match: createMatch(\n            input:
+        {\n              data: {\n                companies: [{ name: \"company\",
+        location: [\"location\"], url: \"http://example.com\", profileUrls: [\"https://github.com/honeypotio\",
+        \"https://linkedin.com/company/honeypot\"], positions: [{ refId: \"324\",
+        name: \"\", description: \"\" }] }],\n                people: [{ refId: \"2\",
+        name: \"Hugo Duksis\", email: \"\", profileUrls: , resumeUrl: \"\", skills:
+        [\"Javascript\", \"ruby\", \"elixir\", \"git\"] }]\n              }\n            }\n          )
+        {\n            id\n          }\n        }\n"}'
+    headers:
+      Authorization:
+      - Bearer yourtokengoeshere
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.13.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Server:
+      - Cowboy
+      Connection:
+      - keep-alive
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '770'
+      Etag:
+      - W/"302-0lyxQgoXTxUFVRSNt8jveCN67Fo"
+      Vary:
+      - Accept-Encoding
+      Date:
+      - Wed, 27 Sep 2017 16:51:01 GMT
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "errors": [
+            {
+              "message": "Syntax Error GraphQL request (6:96) Expected Name, found :\n\n5:                 companies: [{ name: \"company\", location: [\"location\"], url: \"http://example.com\", profileUrls: [\"https://github.com/honeypotio\", \"https://linkedin.com/company/honeypot\"], positions: [{ refId: \"324\", name: \"\", description: \"\" }] }],\n6:                 people: [{ refId: \"2\", name: \"Hugo Duksis\", email: \"\", profileUrls: , resumeUrl: \"\", skills: [\"Javascript\", \"ruby\", \"elixir\", \"git\"] }]\n                                                                                                  ^\n7:               }\n",
+              "locations": [
+                {
+                  "line": 6,
+                  "column": 96
+                }
+              ]
+            }
+          ]
+        }
+    http_version:
+  recorded_at: Wed, 27 Sep 2017 16:51:01 GMT
+recorded_with: VCR 3.0.3
