@@ -5,14 +5,14 @@ http_interactions:
     uri: https://staging-api.mindmatch.ai/graphql
     body:
       encoding: UTF-8
-      string: '{"query":"        query getMatch {\n          match: getMatch(id: \"6906ec3d-024d-43c6-a1cf-9b102eec4fb1\")
+      string: '{"query":"        query getMatch {\n          match: getMatch(id: \"6ecc0537-63ea-4a39-9d4c-e2c2b054b70d\")
         {\n            id\n            status\n            data {\n              results
         {\n                score\n                personId\n                positionId\n              }\n              people
         {\n                id\n                refId\n              }\n              positions
         {\n                id\n                refId\n              }\n            }\n          }\n        }\n"}'
     headers:
       Authorization:
-      - Bearer XvtLRvsxNr4tOpmVpVFNWkJrxyc24hkjZA
+      - Bearer yourtokencomeshere
       Accept:
       - application/json
       Content-Type:
@@ -49,11 +49,11 @@ http_interactions:
       Content-Length:
       - '637'
       Etag:
-      - W/"27d-SCfDV++tLf+dGbiQ19Hf+MfMdOc"
+      - W/"27d-CxmOZD0ZI8lGQH3H/4cxKiLxBZc"
       Vary:
       - Accept-Encoding
       Date:
-      - Mon, 25 Sep 2017 14:36:37 GMT
+      - Fri, 29 Sep 2017 10:03:32 GMT
       Via:
       - 1.1 vegur
     body:
@@ -62,7 +62,7 @@ http_interactions:
         {
           "data": {
             "match": {
-              "id": "6906ec3d-024d-43c6-a1cf-9b102eec4fb1",
+              "id": "53b03dc2-07dd-40a2-91fe-7bff24c86574",
               "status": "fulfilled",
               "data": {
                 "results": [
@@ -88,6 +88,6 @@ http_interactions:
             }
           }
         }
-    http_version: 
-  recorded_at: Mon, 25 Sep 2017 14:36:37 GMT
+    http_version:
+  recorded_at: Fri, 29 Sep 2017 10:03:32 GMT
 recorded_with: VCR 3.0.3
