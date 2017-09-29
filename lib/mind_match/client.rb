@@ -58,9 +58,7 @@ module MindMatch
       end
       handle_error(raw_response)
       response = JSON.parse(raw_response.body)
-      match = response.dig('data', 'match')
-      match = match['data'] if match.has_key?('data') # FIX: remove data namespece in mindmatch api
-      match
+      response.dig('data', 'match')
     end
 
     private
