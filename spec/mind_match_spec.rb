@@ -50,7 +50,7 @@ RSpec.describe MindMatch do
       end
     end
 
-    let(:match_result) { match.dig("data", "results")[0] }
+    let(:match_result) { match.dig("results")[0] }
 
     it 'returns the score and the ids for a match id' do
       VCR.use_cassette("query_match") do
@@ -60,19 +60,19 @@ RSpec.describe MindMatch do
       end
     end
 
-    let(:match_people) { match.dig("data", "people")[0] }
+    let(:match_people) { match.dig("people")[0] }
 
     it 'returns the persoun ids object for a match id' do
       VCR.use_cassette("query_match") do
-        expect(match_people["id"]) .to eql('7dedffb3-c41e-4046-aa3d-73979d7ec1c2')
+        expect(match_people["id"]).to eql('7dedffb3-c41e-4046-aa3d-73979d7ec1c2')
       end
     end
 
-    let(:match_positions) { match.dig("data", "positions")[0] }
+    let(:match_positions) { match.dig("positions")[0] }
 
     it 'returns the position ids object for a match id' do
       VCR.use_cassette("query_match") do
-        expect(match_positions["id"]) .to eql('6214ab8d26e3f79571d922ca269d5743')
+        expect(match_positions["id"]).to eql('6214ab8d26e3f79571d922ca269d5743')
       end
     end
 

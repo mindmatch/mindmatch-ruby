@@ -10,12 +10,12 @@ http_interactions:
         location: [\"location\"], url: \"http://example.com\", profileUrls: [\"https://github.com/honeypotio\",
         \"https://linkedin.com/company/honeypot\"], positions: [{ refId: \"324\",
         name: \"\", description: \"\" }] }],\n                people: [{ refId: \"2\",
-        name: \"Hugo Duksis\", email: \"\", profileUrls: [], resumeUrl: \"\", skills:
+        name: \"Hugo Duksis\", email: \"\", profileUrls: , resumeUrl: \"\", skills:
         [\"Javascript\", \"ruby\", \"elixir\", \"git\"] }]\n              }\n            }\n          )
         {\n            id\n          }\n        }\n"}'
     headers:
       Authorization:
-      - Bearer yourtokencomeshere
+      - Bearer yourtokengoeshere
       Accept:
       - application/json
       Content-Type:
@@ -26,8 +26,8 @@ http_interactions:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
     status:
-      code: 200
-      message: OK
+      code: 400
+      message: Bad Request
     headers:
       Server:
       - Cowboy
@@ -50,25 +50,31 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '91'
+      - '770'
       Etag:
-      - W/"5b-Sx/ln0Q54EC0L2HzWrQ2saUXaMU"
+      - W/"302-0lyxQgoXTxUFVRSNt8jveCN67Fo"
       Vary:
       - Accept-Encoding
       Date:
-      - Fri, 29 Sep 2017 10:03:32 GMT
+      - Wed, 27 Sep 2017 16:51:01 GMT
       Via:
       - 1.1 vegur
     body:
       encoding: UTF-8
       string: |-
         {
-          "data": {
-            "match": {
-              "id": "5e793080-4758-4ace-8d9c-02b082fd6615"
+          "errors": [
+            {
+              "message": "Syntax Error GraphQL request (6:96) Expected Name, found :\n\n5:                 companies: [{ name: \"company\", location: [\"location\"], url: \"http://example.com\", profileUrls: [\"https://github.com/honeypotio\", \"https://linkedin.com/company/honeypot\"], positions: [{ refId: \"324\", name: \"\", description: \"\" }] }],\n6:                 people: [{ refId: \"2\", name: \"Hugo Duksis\", email: \"\", profileUrls: , resumeUrl: \"\", skills: [\"Javascript\", \"ruby\", \"elixir\", \"git\"] }]\n                                                                                                  ^\n7:               }\n",
+              "locations": [
+                {
+                  "line": 6,
+                  "column": 96
+                }
+              ]
             }
-          }
+          ]
         }
     http_version:
-  recorded_at: Fri, 29 Sep 2017 10:03:32 GMT
+  recorded_at: Wed, 27 Sep 2017 16:51:01 GMT
 recorded_with: VCR 3.0.3
