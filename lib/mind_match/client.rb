@@ -58,7 +58,8 @@ module MindMatch
       end
       handle_error(raw_response)
       response = JSON.parse(raw_response.body)
-      response.dig('data', 'match')
+      response = response['data'] if response.has_key?('data')
+      response['match']
     end
 
     private
