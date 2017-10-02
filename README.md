@@ -34,13 +34,12 @@ match_id = mindmatch.create_match(
 mindmatch.query_match(id: match_id)
 #=> {"id"=>"53b03dc2-07dd-40a2-91fe-7bff24c86574",
      "status"=>"fulfilled",
-     "data"=>
-     {"results"=>
+     "results"=>
        [{"score"=>0.1436655436,
          "personId"=>"7dedffb3-c41e-4046-aa3d-73979d7ec1c2",
          "positionId"=>"6214ab8d26e3f79571d922ca269d5743"}],
       "people"=>[{"id"=>"7dedffb3-c41e-4046-aa3d-73979d7ec1c2", "refId"=>"2"}],
-      "positions"=>[{"id"=>"6214ab8d26e3f79571d922ca269d5743", "refId"=>"324"}]}}
+      "positions"=>[{"id"=>"6214ab8d26e3f79571d922ca269d5743", "refId"=>"324"}]}
 ```
 
 
