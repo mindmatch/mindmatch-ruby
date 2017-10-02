@@ -60,7 +60,7 @@ module MindMatch
       response = JSON.parse(raw_response.body)
       match = response.dig('data', 'match')
       if match&.has_key?('data') # FIX: remove data namespece in mindmatch api
-        match = match.merge(match['data'])
+        match = match.merge(match['data'] || {'results'=>[], 'people'=>[], 'positions'=>[]})
         match.delete('data')
       end
       match
@@ -92,7 +92,7 @@ module MindMatch
       response = JSON.parse(raw_response.body)
       match = response.dig('data', 'match')
       if match&.has_key?('data') # FIX: remove data namespece in mindmatch api
-        match = match.merge(match['data'])
+        match = match.merge(match['data'] || {'results'=>[], 'people'=>[], 'positions'=>[]})
         match.delete('data')
       end
       match['id']
