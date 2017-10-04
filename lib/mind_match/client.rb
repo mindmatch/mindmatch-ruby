@@ -6,10 +6,51 @@ module MindMatch
   class Unauthorized < StandardError; end
   class UnexpectedError < StandardError; end
 
-  class Client
+  class QueryBuilder
+    def initialize
+      @fields = {}
+    end
 
-    DEFAULT_ENDPOINT = 'https://api.mindmatch.ai'
-    PATH = '/graphql'
+    def build
+      @fields = @fields.freeze
+      self
+    end
+
+    def to_h
+      Hash[
+        fields.map { |k, _v| [k, []] }
+      ]
+    end
+
+    def to_s
+      ''.tap do |s|
+        fields.each do |k, v|
+          s << "#{k} {\n"
+          s << v.join("\n")
+          s << "}\n"
+        end
+      end
+    end
+
+    private
+
+    attr_reader :fields
+
+    def method_missing(m, *args, &block)
+      method = m.to_s
+      if method.start_with?('with_')
+        key = method.split('with_')[1]
+        @fields[key] = args[0]
+        self
+      else
+        super(m, *args, &block)
+      end
+    end
+  end
+
+  class Client
+    DEFAULT_ENDPOINT = 'https://api.mindmatch.ai'.freeze
+    PATH = '/graphql'.freeze
 
     def initialize(token:, endpoint: DEFAULT_ENDPOINT)
       @token = token
@@ -28,26 +69,22 @@ module MindMatch
       create_matches(talents: talents, companies: companies)
     end
 
-    def query_match(id:)
+    def query_match(id:, query: nil)
+      unless query.is_a?(QueryBuilder)
+        query = (@query_match_query ||= QueryBuilder.new
+          .with_results(%w(score personId positionId companyId))
+          .with_people(%w(id refId))
+          .with_positions(%w(id refId))
+          .build)
+      end
+
       query_match_score = <<-GRAPHQL
         query getMatch {
           match: getMatch(id: "#{id}") {
             id
             status
             data {
-              results {
-                score
-                personId
-                positionId
-              }
-              people {
-                id
-                refId
-              }
-              positions {
-                id
-                refId
-              }
+              #{query.to_s}
             }
           }
         }
@@ -59,8 +96,8 @@ module MindMatch
       handle_error(raw_response)
       response = JSON.parse(raw_response.body)
       match = response.dig('data', 'match')
-      if match&.has_key?('data') # FIX: remove data namespece in mindmatch api
-        match = match.merge(match['data'] || {'results'=>[], 'people'=>[], 'positions'=>[]})
+      if match&.has_key?('data') # FIX: remove data namespace in mindmatch api
+        match = match.merge(match['data'] || query.to_h)
         match.delete('data')
       end
       match

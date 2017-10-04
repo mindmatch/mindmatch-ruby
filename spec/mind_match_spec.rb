@@ -122,7 +122,7 @@ RSpec.describe MindMatch do
     end
 
     context 'response data is nil' do
-      it 'tretats keys as empty vals' do
+      it 'returns keys as empty vals' do
         VCR.use_cassette("query_returnts_empty_data") do
           expect(mindmatch.query_match(id: 'addbff78-4631-4c05-86e5-8ddee2162a5e')['results']).to eq([])
         end
