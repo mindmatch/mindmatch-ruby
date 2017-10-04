@@ -139,9 +139,9 @@ module MindMatch
       position = stringify_keys(position)
       <<-EOS.split.join(" ")
         {
-          refId: "#{position['id']}",
-          name: "#{position['name']}",
-          description: "#{position['description']}"
+          refId: "#{value(position['id'])}",
+          name: "#{value(position['name'])}",
+          description: "#{value(position['description'])}"
         }
       EOS
     end
@@ -151,9 +151,9 @@ module MindMatch
       if company.has_key?("positions")
         <<-EOS.split.join(" ")
           {
-            name: "#{company['name']}",
+            name: "#{value(company['name'])}",
             location: #{[company['location']].flatten},
-            url: "#{company['url']}",
+            url: "#{value(company['url'])}",
             profileUrls: #{company['profileUrls'] || []},
             positions: [#{company['positions'].map(&method(:positionql)).join(', ')}]
           }
@@ -176,12 +176,12 @@ module MindMatch
       tal = stringify_keys(tal)
       <<-EOS.split.join(" ")
         {
-          refId: "#{tal['id']}",
-          name: "#{tal['name']}",
-          email: "#{tal['email']}",
+          refId: "#{value(tal['id'])}",
+          name: "#{value(tal['name'])}",
+          email: "#{value(tal['email'])}",
           profileUrls: #{tal['profileUrls'] || []},
-          resumeUrl: "#{tal['resumeUrl']}",
-          skills: #{tal['skills'] || []}
+          resumeUrl: "#{value(tal['resumeUrl'])}",
+          skills: #{tal['skills'].map(&method(:value)) || []}
         }
       EOS
     end
@@ -206,6 +206,10 @@ module MindMatch
 
     def stringify_keys(hash)
       JSON.parse(JSON.generate(hash))
+    end
+
+    def value(text)
+      text.to_s.gsub('"','\"')
     end
   end
 end

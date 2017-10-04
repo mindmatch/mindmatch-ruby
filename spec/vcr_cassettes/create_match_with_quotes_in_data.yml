@@ -1,0 +1,76 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://staging-api.mindmatch.ai/graphql
+    body:
+      encoding: UTF-8
+      string: '{"query":"        mutation createMatch {\n          match: createMatch(\n            input:
+        {\n              data: {\n                companies: [{ name: \"MindMatch
+        GmbH\", location: [\"Berlin, Germany\"], url: \"https://mindmatch.ai\", profileUrls:
+        [\"https://github.com/mindmatch\"], positions: [{ refId: \"324\", name: \"Elixir
+        Frontend Developer\", description: \"4+ years experience with \\\"Ruby on
+        Rails\\\" and API''s, and elixir JS\" }] }],\n                people: [{ refId:
+        \"2\", name: \"Hugo Duksis\", email: \"hd@diaoma.com\", profileUrls: [\"https://linkedin.com/in/duksis\",
+        \"https://github.com/duksis\", \"https://twitter.com/duksis\"], resumeUrl:
+        \"\", skills: [\"Javascript\", \"ruby\", \"elixir\", \"git\"] }]\n              }\n            }\n          )
+        {\n            id\n          }\n        }\n"}'
+    headers:
+      Authorization:
+      - Bearer yourtokencomeshere
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.13.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Connection:
+      - keep-alive
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '91'
+      Etag:
+      - W/"5b-l2jDspOyCqvfFn5pvC0mzH7+r/E"
+      Vary:
+      - Accept-Encoding
+      Date:
+      - Wed, 04 Oct 2017 19:41:21 GMT
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "data": {
+            "match": {
+              "id": "717ac8f9-bc57-4704-bc2c-6938608ab475"
+            }
+          }
+        }
+    http_version:
+  recorded_at: Wed, 04 Oct 2017 19:41:22 GMT
+recorded_with: VCR 3.0.3

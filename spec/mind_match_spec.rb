@@ -77,6 +77,7 @@ RSpec.describe MindMatch do
     end
 
     context 'position with company data' do
+      let(:description) { "4+ years experience with Ruby on Rails and API's, and elixir JS" }
       let(:position) { {
         "name" => "MindMatch GmbH",
         "location" => "Berlin, Germany",
@@ -85,7 +86,7 @@ RSpec.describe MindMatch do
         "positions" => [{
             "id" => 324,
             "name" => "Elixir Frontend Developer",
-            "description" => "4+ years experience with Ruby on Rails and API's, and elixir JS"
+            "description" => description
           }]
         }
       }
@@ -93,6 +94,16 @@ RSpec.describe MindMatch do
       it 'returns an id for a list of talents & position' do
         VCR.use_cassette("create_match_with_company_data") do
           expect(mindmatch.create_match(talents: talents, position: position)).to eql('5ab36ee2-2121-49db-bf3d-8623fa4e0a09')
+        end
+      end
+
+      context "Double quetes in description" do
+        let(:description) { "4+ years experience with \"Ruby on Rails\" and API's, and elixir JS" }
+
+        it 'returns an id for a list of talents & position' do
+          VCR.use_cassette("create_match_with_quotes_in_data") do
+            expect(mindmatch.create_match(talents: talents, position: position)).to eql('717ac8f9-bc57-4704-bc2c-6938608ab475')
+          end
         end
       end
     end
