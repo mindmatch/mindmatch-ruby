@@ -137,7 +137,7 @@ module MindMatch
     end
 
     def positionql(position)
-      position = stringify_keys(position)
+      position = stringify(position)
       <<-EOS.split.join(" ")
         {
           refId: "#{value(position['id'])}",
@@ -148,7 +148,7 @@ module MindMatch
     end
 
     def companiesql(company)
-      company = stringify_keys(company)
+      company = stringify(company)
       if company.has_key?("positions")
         <<-EOS.split.join(" ")
           {
@@ -174,7 +174,7 @@ module MindMatch
     end
 
     def talentql(tal)
-      tal = stringify_keys(tal)
+      tal = stringify(tal)
       <<-EOS.split.join(" ")
         {
           refId: "#{value(tal['id'])}",
@@ -206,7 +206,7 @@ module MindMatch
       end
     end
 
-    def stringify_keys(hash)
+    def stringify(hash)
       JSON.parse(JSON.generate(hash))
     end
 
