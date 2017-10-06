@@ -5,6 +5,7 @@ module MindMatch
   class ArgumentError < StandardError; end
   class Unauthorized < StandardError; end
   class UnexpectedError < StandardError; end
+  class RequestEntityTooLarge < StandardError; end
 
   class QueryBuilder
     def initialize
@@ -200,6 +201,7 @@ module MindMatch
       case raw_response.status
         when 400 then raise(ArgumentError, raw_response.body)
         when 401 then raise(Unauthorized, raw_response.body)
+        when 413 then raise(RequestEntityTooLarge, raw_response.body)
         else raise(UnexpectedError, raw_response.status, raw_response.body)
       end
     end
