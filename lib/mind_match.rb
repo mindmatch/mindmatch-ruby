@@ -1,4 +1,5 @@
 require 'mind_match/version'
+require 'mind_match/query_builder'
 require 'mind_match/client'
 require 'forwardable'
 
