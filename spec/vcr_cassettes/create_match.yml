@@ -5,16 +5,14 @@ http_interactions:
     uri: https://staging-api.mindmatch.ai/graphql
     body:
       encoding: UTF-8
-      string: '{"query":"        mutation createMatch {\n          match: createMatch(\n            input:
-        {\n              data: {\n                companies: [{ name: \"company\",
-        location: [\"location\"], url: \"http://example.com\", profileUrls: [\"https://github.com/honeypotio\",
-        \"https://linkedin.com/company/honeypot\"], positions: [{ refId: \"324\",
-        name: \"Elixir Frontend Developer\", description: \"4+ years experience with
-        Ruby on Rails and API''s, and elixir JS\" }] }],\n                people:
-        [{ refId: \"2\", name: \"Hugo Duksis\", email: \"hd@diaoma.com\", profileUrls:
-        [\"https://linkedin.com/in/duksis\", \"https://github.com/duksis\", \"https://twitter.com/duksis\"],
-        resumeUrl: \"\", skills: [\"Javascript\", \"ruby\", \"elixir\", \"git\"] }]\n              }\n            }\n          )
-        {\n            id\n          }\n        }\n"}'
+      string: '{"query":"        mutation ($companies: [CompanyInput], $people: [PersonInput])
+        {\n          createMatch(\n            input: {\n              data: {\n                companies:
+        $companies,\n                people: $people\n              }\n            }\n          )
+        {\n            id\n          }\n        }\n","variables":"{\"companies\":[{\"name\":\"MindMatch
+        GmbH\",\"location\":[\"Berlin, Germany\"],\"url\":\"https://mindmatch.ai\",\"profileUrls\":[\"https://github.com/mindmatch\"],\"positions\":[{\"refId\":324,\"name\":\"Elixir
+        Frontend Developer\",\"description\":\"4+ years experience with Ruby on Rails
+        and API''s, and elixir JS\",\"technologies\":[\"Ruby\",\"Ruby on Rails\",\"Elixir\",\"API\"]}]}],\"people\":[{\"refId\":2,\"name\":\"Hugo
+        Duksis\",\"email\":\"hd@diaoma.com\",\"profileUrls\":[\"https://linkedin.com/in/duksis\",\"https://github.com/duksis\",\"https://twitter.com/duksis\"],\"resumeUrl\":null,\"skills\":[\"Javascript\",\"ruby\",\"elixir\",\"git\"]}]}"}'
     headers:
       Authorization:
       - Bearer yourtokencomeshere
@@ -52,13 +50,13 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '91'
+      - '97'
       Etag:
-      - W/"5b-UgFewtKHjy6s1/Z5/UEXBP92MQU"
+      - W/"61-b28SkU1Ucu5a0teoFz1z06Ac4dE"
       Vary:
       - Accept-Encoding
       Date:
-      - Fri, 29 Sep 2017 10:03:31 GMT
+      - Tue, 24 Oct 2017 10:01:28 GMT
       Via:
       - 1.1 vegur
     body:
@@ -66,11 +64,11 @@ http_interactions:
       string: |-
         {
           "data": {
-            "match": {
-              "id": "1d7964c9-7219-4d77-aee3-ece7919f9af5"
+            "createMatch": {
+              "id": "30bd7c5e-a70d-4ff1-8610-4ac7bed2ccbf"
             }
           }
         }
-    http_version:
-  recorded_at: Fri, 29 Sep 2017 10:03:31 GMT
+    http_version: 
+  recorded_at: Tue, 24 Oct 2017 10:01:28 GMT
 recorded_with: VCR 3.0.3

@@ -5,11 +5,10 @@ http_interactions:
     uri: https://staging-api.mindmatch.ai/graphql
     body:
       encoding: UTF-8
-      string: '{"query":"        query getMatch {\n          match: getMatch(id: \"6ecc0537-63ea-4a39-9d4c-e2c2b054b70d\")
+      string: '{"query":"        query ($id: String!) {\n          getMatch(id: $id)
         {\n            id\n            status\n            data {\n              results
-        {\n                score\n                personId\n                positionId\n              }\n              people
-        {\n                id\n                refId\n              }\n              positions
-        {\n                id\n                refId\n              }\n            }\n          }\n        }\n"}'
+        {\nscore\npersonId\npositionId\ncompanyId}\npeople {\nid\nrefId}\npositions
+        {\nid\nrefId}\n\n            }\n          }\n        }\n","variables":"{\"id\":\"30bd7c5e-a70d-4ff1-8610-4ac7bed2ccbf\"}"}'
     headers:
       Authorization:
       - Bearer yourtokencomeshere
@@ -47,13 +46,13 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '637'
+      - '708'
       Etag:
-      - W/"27d-CxmOZD0ZI8lGQH3H/4cxKiLxBZc"
+      - W/"2c4-I+trSCe4LyJd+ePMtJEV4hABkgQ"
       Vary:
       - Accept-Encoding
       Date:
-      - Fri, 29 Sep 2017 10:03:32 GMT
+      - Tue, 24 Oct 2017 10:03:22 GMT
       Via:
       - 1.1 vegur
     body:
@@ -61,15 +60,16 @@ http_interactions:
       string: |-
         {
           "data": {
-            "match": {
-              "id": "53b03dc2-07dd-40a2-91fe-7bff24c86574",
+            "getMatch": {
+              "id": "38eca5a6-3fde-4b3e-9a44-cfc0c3674e3c",
               "status": "fulfilled",
               "data": {
                 "results": [
                   {
-                    "score": 0.1436655436,
+                    "score": 0.22283216230156327,
                     "personId": "7dedffb3-c41e-4046-aa3d-73979d7ec1c2",
-                    "positionId": "6214ab8d26e3f79571d922ca269d5743"
+                    "positionId": "9084a00003008113492111b0cdd14a7e",
+                    "companyId": "32252ede8c1e5f24250f67eee4c31d11"
                   }
                 ],
                 "people": [
@@ -80,7 +80,7 @@ http_interactions:
                 ],
                 "positions": [
                   {
-                    "id": "6214ab8d26e3f79571d922ca269d5743",
+                    "id": "9084a00003008113492111b0cdd14a7e",
                     "refId": "324"
                   }
                 ]
@@ -88,6 +88,6 @@ http_interactions:
             }
           }
         }
-    http_version:
-  recorded_at: Fri, 29 Sep 2017 10:03:32 GMT
+    http_version: 
+  recorded_at: Tue, 24 Oct 2017 10:03:22 GMT
 recorded_with: VCR 3.0.3

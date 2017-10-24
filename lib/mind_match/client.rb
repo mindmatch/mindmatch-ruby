@@ -38,8 +38,8 @@ module MindMatch
       end
 
       query_match_score = <<-GRAPHQL
-        query getMatch {
-          match: getMatch(id: "#{id}") {
+        query ($id: String!) {
+          getMatch(id: $id) {
             id
             status
             data {
@@ -50,16 +50,16 @@ module MindMatch
       GRAPHQL
 
       raw_response = conn.get do |req|
-        req.body = JSON.generate(query: query_match_score)
+        req.body = JSON.generate(query: query_match_score, variables: {id: id}.to_json)
       end
       handle_error(raw_response)
       response = JSON.parse(raw_response.body)
-      match = response.dig('data', 'match')
+      match = response.dig('data', 'getMatch')
       if match&.has_key?('data') # FIX: remove data namespace in mindmatch api
         match = match.merge(match['data'] || query.to_h)
         match.delete('data')
       end
-      match
+      match || query.to_h
     end
 
     private
@@ -67,12 +67,12 @@ module MindMatch
 
     def create_matches(talents:, companies:)
       create_match_mutation = <<-GRAPHQL
-        mutation createMatch {
-          match: createMatch(
+        mutation ($companies: [CompanyInput], $people: [PersonInput]) {
+          createMatch(
             input: {
               data: {
-                companies: [#{companies.map(&method(:companiesql)).join(',')}],
-                people: [#{talents.map(&method(:talentql)).join(',')}]
+                companies: $companies,
+                people: $people
               }
             }
           ) {
@@ -82,67 +82,55 @@ module MindMatch
       GRAPHQL
 
       raw_response = conn.post do |req|
-        req.body = JSON.generate(query: create_match_mutation)
+        req.body = JSON.generate(
+          query: create_match_mutation,
+          variables: {
+            companies: companies.map(&method(:companiesql)),
+            people: talents.map(&method(:talentql))
+          }.to_json
+        )
       end
       handle_error(raw_response)
       response = JSON.parse(raw_response.body)
-      match = response.dig('data', 'match')
+      match = response.dig('data', 'createMatch')
       if match&.has_key?('data') # FIX: remove data namespece in mindmatch api
         match = match.merge(match['data'] || {'results'=>[], 'people'=>[], 'positions'=>[]})
         match.delete('data')
       end
-      match['id']
+      match && match['id']
     end
 
     def positionql(position)
       position = stringify(position)
-      <<-EOS.split.join(" ")
-        {
-          refId: "#{value(position['id'])}",
-          name: "#{value(position['name'])}",
-          description: "#{value(position['description'])}"
-        }
-      EOS
+      {
+        refId: position['id'],
+        name: position['name'],
+        description: position['description'],
+        technologies: position['technologies'] || []
+      }
     end
 
     def companiesql(company)
       company = stringify(company)
-      if company.has_key?("positions")
-        <<-EOS.split.join(" ")
-          {
-            name: "#{value(company['name'])}",
-            location: #{[company['location']].flatten},
-            url: "#{value(company['url'])}",
-            profileUrls: #{company['profileUrls'] || []},
-            positions: [#{company['positions'].map(&method(:positionql)).join(', ')}]
-          }
-        EOS
-      else
-        warn "[DEPRECATION] providing postition without company information is deprecated."
-        <<-EOS.split.join(" ")
-          {
-            name: "company",
-            location: ["location"],
-            url: "http://example.com",
-            profileUrls: ["https://github.com/honeypotio", "https://linkedin.com/company/honeypot"],
-            positions: [#{positionql(company)}]
-          }
-        EOS
-      end
+      {
+        name: company['name'],
+        location: [company['location']].flatten,
+        url: company['url'],
+        profileUrls: company['profileUrls'] || [],
+        positions: company.fetch('positions', []).map(&method(:positionql))
+      }
     end
 
     def talentql(tal)
       tal = stringify(tal)
-      <<-EOS.split.join(" ")
-        {
-          refId: "#{value(tal['id'])}",
-          name: "#{value(tal['name'])}",
-          email: "#{value(tal['email'])}",
-          profileUrls: #{tal['profileUrls'] || []},
-          resumeUrl: "#{value(tal['resumeUrl'])}",
-          skills: #{tal['skills'].map(&method(:value)) || []}
-        }
-      EOS
+      {
+        refId: tal['id'],
+        name: tal['name'],
+        email: tal['email'],
+        profileUrls: tal['profileUrls'] || [],
+        resumeUrl: tal['resumeUrl'],
+        skills: tal['skills'] || []
+      }
     end
 
     def headers
@@ -154,7 +142,7 @@ module MindMatch
     end
 
     def handle_error(raw_response)
-      return if raw_response.status.to_s =~ /2\d\d/
+      return if raw_response.status.to_s =~ /2\d\d/ and error_free?(raw_response.body)
 
       case raw_response.status
         when 400 then raise(ArgumentError, raw_response.body)
@@ -164,12 +152,14 @@ module MindMatch
       end
     end
 
-    def stringify(hash)
-      JSON.parse(JSON.generate(hash))
+    def error_free?(body)
+      !JSON.parse(body).has_key?('errors')
+    rescue StandardError
+      return false
     end
 
-    def value(text)
-      text.to_s.gsub('"','\"')
+    def stringify(hash)
+      JSON.parse(JSON.generate(hash))
     end
   end
 end
