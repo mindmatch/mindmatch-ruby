@@ -28,7 +28,7 @@ match_id = mindmatch.create_match(
   talents: [{"id" => 2, "name" => "John Snow", "email" => "js@winterfeld.uk",
     "profileUrls" => ["https://linkedin.com/in/johnsnow"], "skills" => ["Javascript", "ruby"]}
   ],
-  position: {"mame" => "FE Developer", "description" => "Building a Ember aplication on a rails backend"}
+  companies: [{"name" => "MindMatch", "url" => "https://mindmatch.ai", "positions" => [{"mame" => "FE Developer", "description" => "Building a Ember aplication on a rails backend"}]}]
 )
 #=> '6906ec3d-024d-43c6-a1cf-9b102eec4fb1'
 mindmatch.query_match(id: match_id)
