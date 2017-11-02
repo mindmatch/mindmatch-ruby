@@ -6,9 +6,8 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"query":"        mutation ($companies: [CompanyInput], $people: [PersonInput])
-        {\n          createMatch(\n            input: {\n              data: {\n                companies:
-        $companies,\n                people: $people\n              }\n            }\n          )
-        {\n            id\n          }\n        }\n","variables":"{\"companies\":[{\"name\":\"MindMatch
+        {\n          createMatch(\n            input: {\n              companies:
+        $companies,\n              people: $people\n            }\n          ) {\n            id\n          }\n        }\n","variables":"{\"companies\":[{\"name\":\"MindMatch
         GmbH\",\"location\":[\"Berlin, Germany\"],\"url\":\"https://mindmatch.ai\",\"profileUrls\":[\"https://github.com/mindmatch\"],\"positions\":[{\"refId\":324,\"name\":\"Elixir
         Frontend Developer\",\"description\":\"4+ years experience with \\\"Ruby on
         Rails\\\" and API''s, and elixir JS\",\"technologies\":[\"Ruby\",\"Ruby on
@@ -52,11 +51,11 @@ http_interactions:
       Content-Length:
       - '97'
       Etag:
-      - W/"61-f/J+KfrF2MZyPM+9cRY4VY3LHe4"
+      - W/"61-IPqA1qUK1ibrMm8qBasnP96t6OA"
       Vary:
       - Accept-Encoding
       Date:
-      - Tue, 24 Oct 2017 10:07:37 GMT
+      - Thu, 02 Nov 2017 10:07:02 GMT
       Via:
       - 1.1 vegur
     body:
@@ -65,10 +64,10 @@ http_interactions:
         {
           "data": {
             "createMatch": {
-              "id": "5b4230bf-8533-4048-853c-08c2269fc76e"
+              "id": "8c5f784a-2327-4c10-adcb-4f5ce7e13b66"
             }
           }
         }
     http_version: 
-  recorded_at: Tue, 24 Oct 2017 10:07:37 GMT
+  recorded_at: Thu, 02 Nov 2017 10:07:03 GMT
 recorded_with: VCR 3.0.3

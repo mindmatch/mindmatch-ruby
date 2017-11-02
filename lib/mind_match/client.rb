@@ -42,9 +42,7 @@ module MindMatch
           getMatch(id: $id) {
             id
             status
-            data {
-              #{query.to_s}
-            }
+            #{query.to_s}
           }
         }
       GRAPHQL
@@ -70,10 +68,8 @@ module MindMatch
         mutation ($companies: [CompanyInput], $people: [PersonInput]) {
           createMatch(
             input: {
-              data: {
-                companies: $companies,
-                people: $people
-              }
+              companies: $companies,
+              people: $people
             }
           ) {
             id

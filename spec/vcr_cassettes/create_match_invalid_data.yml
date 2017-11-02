@@ -6,9 +6,8 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"query":"        mutation ($companies: [CompanyInput], $people: [PersonInput])
-        {\n          createMatch(\n            input: {\n              data: {\n                companies:
-        $companies,\n                people: $people\n              }\n            }\n          )
-        {\n            id\n          }\n        }\n","variables":"{\"companies\":[{\"name\":null,\"location\":[null],\"url\":null,\"profileUrls\":[],\"positions\":[]}],\"people\":[{\"refId\":2,\"name\":\"Hugo
+        {\n          createMatch(\n            input: {\n              companies:
+        $companies,\n              people: $people\n            }\n          ) {\n            id\n          }\n        }\n","variables":"{\"companies\":[{\"name\":null,\"location\":[null],\"url\":null,\"profileUrls\":[],\"positions\":[]}],\"people\":[{\"refId\":2,\"name\":\"Hugo
         Duksis\",\"email\":null,\"profileUrls\":[],\"resumeUrl\":null,\"skills\":[\"Javascript\",\"ruby\",\"elixir\",\"git\"]}]}"}'
     headers:
       Authorization:
@@ -53,7 +52,7 @@ http_interactions:
       Vary:
       - Accept-Encoding
       Date:
-      - Tue, 24 Oct 2017 10:08:31 GMT
+      - Thu, 02 Nov 2017 10:08:08 GMT
       Via:
       - 1.1 vegur
     body:
@@ -73,5 +72,5 @@ http_interactions:
           ]
         }
     http_version: 
-  recorded_at: Tue, 24 Oct 2017 10:08:31 GMT
+  recorded_at: Thu, 02 Nov 2017 10:08:09 GMT
 recorded_with: VCR 3.0.3
