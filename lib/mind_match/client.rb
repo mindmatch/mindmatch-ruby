@@ -60,6 +60,43 @@ module MindMatch
       match || query.to_h
     end
 
+    def add_feedback(request_id:, person_id:, position_id:, company_id:, value:, comment: nil)
+      add_feedback_mutation = <<-GRAPHQL
+        mutation ($input: FeedbackInput!) {
+          addFeedback(
+            input: $input
+          ) {
+            id
+            requestId
+            personId
+            positionId
+            companyId
+            value
+            comment
+          }
+        }
+      GRAPHQL
+
+      raw_response = conn.post do |req|
+        req.body = JSON.generate(
+          query: add_feedback_mutation,
+          variables: {
+            input: {
+              requestId: request_id,
+              personId: person_id,
+              positionId: position_id,
+              companyId: company_id,
+              value: value,
+              comment: comment
+            }.delete_if { |_k, v| v.nil? }
+          }.to_json
+        )
+      end
+      handle_error(raw_response)
+      response = JSON.parse(raw_response.body)
+      response.dig('data', 'addFeedback')
+    end
+
     private
     attr_reader :conn, :token
 

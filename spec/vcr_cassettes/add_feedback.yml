@@ -1,0 +1,75 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://staging-api.mindmatch.ai/graphql
+    body:
+      encoding: UTF-8
+      string: '{"query":"        mutation ($input: FeedbackInput!) {\n          addFeedback(\n            input:
+        $input\n          ) {\n            id\n            requestId\n            personId\n            positionId\n            companyId\n            value\n            comment\n          }\n        }\n","variables":"{\"input\":{\"requestId\":\"14bc4007-725b-43c8-8cc8-26f49c6e6962\",\"personId\":\"7dedffb3-c41e-4046-aa3d-73979d7ec1c2\",\"positionId\":\"9084a00003008113492111b0cdd14a7e\",\"companyId\":\"32252ede8c1e5f24250f67eee4c31d11\",\"value\":false,\"comment\":\"Lacking
+        FE experience - otherwise quiet ok\"}}"}'
+    headers:
+      Authorization:
+      - Bearer yourtokencomeshere
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.13.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Connection:
+      - keep-alive
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '410'
+      Etag:
+      - W/"19a-53I5Z+hOjvalw4OSTeLA3WmIGgk"
+      Vary:
+      - Accept-Encoding
+      Date:
+      - Thu, 02 Nov 2017 10:53:06 GMT
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "data": {
+            "addFeedback": {
+              "id": "baf31287-8c0c-4414-b456-2f11526cc816",
+              "requestId": "14bc4007-725b-43c8-8cc8-26f49c6e6962",
+              "personId": "7dedffb3-c41e-4046-aa3d-73979d7ec1c2",
+              "positionId": "9084a00003008113492111b0cdd14a7e",
+              "companyId": "32252ede8c1e5f24250f67eee4c31d11",
+              "value": false,
+              "comment": "Lacking FE experience - otherwise quiet ok"
+            }
+          }
+        }
+    http_version:
+  recorded_at: Thu, 02 Nov 2017 10:53:06 GMT
+recorded_with: VCR 3.0.3

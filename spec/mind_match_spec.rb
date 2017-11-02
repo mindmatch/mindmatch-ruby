@@ -9,78 +9,43 @@ RSpec.describe MindMatch do
     expect(MindMatch::VERSION).not_to be nil
   end
 
-  describe '#match' do
-    let(:talents) { [{
-        "id" => 2,
-        "name" => "Hugo Duksis",
-        :email => "hd@diaoma.com",
-        "profileUrls" => [
-          "https://linkedin.com/in/duksis",
-          "https://github.com/duksis",
-          "https://twitter.com/duksis"
-        ],
-        "skills" => [
-          "Javascript",
-          "ruby",
-          "elixir",
-          "git"
-        ]
+  let(:talents) { [{
+      "id" => 2,
+      "name" => "Hugo Duksis",
+      :email => "hd@diaoma.com",
+      "profileUrls" => [
+        "https://linkedin.com/in/duksis",
+        "https://github.com/duksis",
+        "https://twitter.com/duksis"
+      ],
+      "skills" => [
+        "Javascript",
+        "ruby",
+        "elixir",
+        "git"
+      ]
+    }]
+  }
+
+  let(:description) { "4+ years experience with Ruby on Rails and API's, and elixir JS" }
+  let(:position) { {
+    "name" => "MindMatch GmbH",
+    "location" => "Berlin, Germany",
+    "url" => "https://mindmatch.ai",
+    "profileUrls" => ["https://github.com/mindmatch"],
+    "positions" => [{
+        "id" => 324,
+        "name" => "Elixir Frontend Developer",
+        "technologies" => ["Ruby", "Ruby on Rails", "Elixir", "API"],
+        "description" => description
       }]
     }
+  }
 
-    let(:description) { "4+ years experience with Ruby on Rails and API's, and elixir JS" }
-    let(:position) { {
-      "name" => "MindMatch GmbH",
-      "location" => "Berlin, Germany",
-      "url" => "https://mindmatch.ai",
-      "profileUrls" => ["https://github.com/mindmatch"],
-      "positions" => [{
-          "id" => 324,
-          "name" => "Elixir Frontend Developer",
-          "technologies" => ["Ruby", "Ruby on Rails", "Elixir", "API"],
-          "description" => description
-        }]
-      }
-    }
-
+  describe '#create_match' do
     it 'returns an id for a list of talents & position' do
       VCR.use_cassette("create_match") do
         expect(mindmatch.create_match(talents: talents, position: position)).to eql('14bc4007-725b-43c8-8cc8-26f49c6e6962')
-      end
-    end
-
-    let(:match) { mindmatch.query_match(id: '14bc4007-725b-43c8-8cc8-26f49c6e6962') }
-
-    it 'returns the status for a match id' do
-      VCR.use_cassette("query_match") do
-        expect(match["id"]).to eql('14bc4007-725b-43c8-8cc8-26f49c6e6962')
-        expect(match["status"]).to eql('fulfilled')
-      end
-    end
-
-    let(:match_result) { match.dig("results")[0] }
-
-    it 'returns the score and the ids for a match id' do
-      VCR.use_cassette("query_match") do
-        expect(match_result["score"]).to eql(0.22283216230156327)
-        expect(match_result["personId"]).to eql('7dedffb3-c41e-4046-aa3d-73979d7ec1c2')
-        expect(match_result["positionId"]).to eql('9084a00003008113492111b0cdd14a7e')
-      end
-    end
-
-    let(:match_people) { match.dig("people")[0] }
-
-    it 'returns the persoun ids object for a match id' do
-      VCR.use_cassette("query_match") do
-        expect(match_people["id"]).to eql('7dedffb3-c41e-4046-aa3d-73979d7ec1c2')
-      end
-    end
-
-    let(:match_positions) { match.dig("positions")[0] }
-
-    it 'returns the position ids object for a match id' do
-      VCR.use_cassette("query_match") do
-        expect(match_positions["id"]).to eql('9084a00003008113492111b0cdd14a7e')
       end
     end
 
@@ -119,11 +84,65 @@ RSpec.describe MindMatch do
       end
     end
 
+  end
+
+  describe '#query_match' do
+    let(:match) { mindmatch.query_match(id: '14bc4007-725b-43c8-8cc8-26f49c6e6962') }
+
+    it 'returns the status for a match id' do
+      VCR.use_cassette("query_match") do
+        expect(match["id"]).to eql('14bc4007-725b-43c8-8cc8-26f49c6e6962')
+        expect(match["status"]).to eql('fulfilled')
+      end
+    end
+
+    let(:match_result) { match.dig("results")[0] }
+
+    it 'returns the score and the ids for a match id' do
+      VCR.use_cassette("query_match") do
+        expect(match_result["score"]).to eql(0.22283216230156327)
+        expect(match_result["personId"]).to eql('7dedffb3-c41e-4046-aa3d-73979d7ec1c2')
+        expect(match_result["positionId"]).to eql('9084a00003008113492111b0cdd14a7e')
+        expect(match_result["companyId"]).to eql('32252ede8c1e5f24250f67eee4c31d11')
+      end
+    end
+
+    let(:match_people) { match.dig("people")[0] }
+
+    it 'returns the persoun ids object for a match id' do
+      VCR.use_cassette("query_match") do
+        expect(match_people["id"]).to eql('7dedffb3-c41e-4046-aa3d-73979d7ec1c2')
+      end
+    end
+
+    let(:match_positions) { match.dig("positions")[0] }
+
+    it 'returns the position ids object for a match id' do
+      VCR.use_cassette("query_match") do
+        expect(match_positions["id"]).to eql('9084a00003008113492111b0cdd14a7e')
+      end
+    end
+
     context 'response data is nil' do
       it 'returns keys as empty vals' do
         VCR.use_cassette("query_returnts_empty_data", match_requests_on: [:query]) do
           expect(mindmatch.query_match(id: 'addbff78-4631-4c05-86e5-8ddee2162a5e')['results']).to eq([])
         end
+      end
+    end
+  end
+
+  describe '#add_feedback' do
+    it 'it returns a feedback with id' do
+      VCR.use_cassette("add_feedback") do
+        expect(mindmatch.add_feedback(
+          request_id: '14bc4007-725b-43c8-8cc8-26f49c6e6962',
+          person_id: '7dedffb3-c41e-4046-aa3d-73979d7ec1c2',
+          position_id: '9084a00003008113492111b0cdd14a7e',
+          company_id: '32252ede8c1e5f24250f67eee4c31d11',
+          value: false,
+          comment: 'Lacking FE experience - otherwise quiet ok'
+        )['id']).to eq('baf31287-8c0c-4414-b456-2f11526cc816')
       end
     end
   end
