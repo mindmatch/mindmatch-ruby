@@ -8,6 +8,9 @@ module MindMatch
   class RequestEntityTooLarge < StandardError; end
 
   class Client
+    EXP_ENTRY_FIELDS = %w{position description custom_company technologies start_year end_year}.freeze
+    EDU_ENTRY_FIELDS = %{school_name discipline start_year end_year}.freeze
+
     DEFAULT_ENDPOINT = 'https://api.mindmatch.ai'.freeze
     PATH = '/graphql'.freeze
 
@@ -136,7 +139,7 @@ module MindMatch
     def positionql(position)
       position = stringify(position)
       {
-        refId: position['id'],
+        refId: position['id'] || position['refId'],
         name: position['name'],
         description: position['description'],
         technologies: position['technologies'] || []
@@ -157,12 +160,16 @@ module MindMatch
     def talentql(tal)
       tal = stringify(tal)
       {
-        refId: tal['id'],
+        refId: tal['id'] || tal['refId'],
         name: tal['name'],
+        location: tal['location'],
+        summary: tal['summary'],
         email: tal['email'],
         profileUrls: tal['profileUrls'] || [],
         resumeUrl: tal['resumeUrl'],
-        skills: tal['skills'] || []
+        skills: tal['skills'] || [],
+        experienceEntries: tal.fetch('experienceEntries', []).map{|e| e.select{|k, _v| EXP_ENTRY_FIELDS.include?(k) } },
+        educationEntries: tal.fetch('educationEntries', []).map{|e| e.select{|k, _v| EDU_ENTRY_FIELDS.include?(k) } }
       }
     end
 

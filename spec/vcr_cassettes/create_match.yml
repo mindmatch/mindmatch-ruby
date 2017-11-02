@@ -11,7 +11,7 @@ http_interactions:
         GmbH\",\"location\":[\"Berlin, Germany\"],\"url\":\"https://mindmatch.ai\",\"profileUrls\":[\"https://github.com/mindmatch\"],\"positions\":[{\"refId\":324,\"name\":\"Elixir
         Frontend Developer\",\"description\":\"4+ years experience with Ruby on Rails
         and API''s, and elixir JS\",\"technologies\":[\"Ruby\",\"Ruby on Rails\",\"Elixir\",\"API\"]}]}],\"people\":[{\"refId\":2,\"name\":\"Hugo
-        Duksis\",\"email\":\"hd@diaoma.com\",\"profileUrls\":[\"https://linkedin.com/in/duksis\",\"https://github.com/duksis\",\"https://twitter.com/duksis\"],\"resumeUrl\":null,\"skills\":[\"Javascript\",\"ruby\",\"elixir\",\"git\"]}]}"}'
+        Duksis\",\"location\":null,\"summary\":null,\"email\":\"hd@diaoma.com\",\"profileUrls\":[\"https://linkedin.com/in/duksis\",\"https://github.com/duksis\",\"https://twitter.com/duksis\"],\"resumeUrl\":null,\"skills\":[\"Javascript\",\"ruby\",\"elixir\",\"git\"],\"experienceEntries\":[],\"educationEntries\":[]}]}"}'
     headers:
       Authorization:
       - Bearer yourtokencomeshere
@@ -51,11 +51,11 @@ http_interactions:
       Content-Length:
       - '97'
       Etag:
-      - W/"61-YaFBUrLJj1s1wAi6udEbE/SlYOM"
+      - W/"61-WkNC87it6hM3YoXBw5L63KYAGGg"
       Vary:
       - Accept-Encoding
       Date:
-      - Thu, 02 Nov 2017 09:56:35 GMT
+      - Thu, 02 Nov 2017 16:52:35 GMT
       Via:
       - 1.1 vegur
     body:
@@ -64,10 +64,10 @@ http_interactions:
         {
           "data": {
             "createMatch": {
-              "id": "14bc4007-725b-43c8-8cc8-26f49c6e6962"
+              "id": "b55c8aba-8a64-4a2d-bee1-ecece8add36e"
             }
           }
         }
     http_version: 
-  recorded_at: Thu, 02 Nov 2017 09:56:36 GMT
+  recorded_at: Thu, 02 Nov 2017 16:52:35 GMT
 recorded_with: VCR 3.0.3

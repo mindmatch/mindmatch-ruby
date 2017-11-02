@@ -45,7 +45,7 @@ RSpec.describe MindMatch do
   describe '#create_match' do
     it 'returns an id for a list of talents & position' do
       VCR.use_cassette("create_match") do
-        expect(mindmatch.create_match(talents: talents, position: position)).to eql('14bc4007-725b-43c8-8cc8-26f49c6e6962')
+        expect(mindmatch.create_match(talents: talents, position: position)).to eql('b55c8aba-8a64-4a2d-bee1-ecece8add36e')
       end
     end
 
@@ -54,7 +54,7 @@ RSpec.describe MindMatch do
 
       it 'returns an id for a list of talents & position' do
         VCR.use_cassette("create_match_with_quotes_in_data") do
-          expect(mindmatch.create_match(talents: talents, position: position)).to eql('8c5f784a-2327-4c10-adcb-4f5ce7e13b66')
+          expect(mindmatch.create_match(talents: talents, position: position)).to eql('7428f7c6-05d2-4adb-a431-f6b629e2b685')
         end
       end
     end
@@ -87,11 +87,11 @@ RSpec.describe MindMatch do
   end
 
   describe '#query_match' do
-    let(:match) { mindmatch.query_match(id: '14bc4007-725b-43c8-8cc8-26f49c6e6962') }
+    let(:match) { mindmatch.query_match(id: 'b55c8aba-8a64-4a2d-bee1-ecece8add36e') }
 
     it 'returns the status for a match id' do
       VCR.use_cassette("query_match") do
-        expect(match["id"]).to eql('14bc4007-725b-43c8-8cc8-26f49c6e6962')
+        expect(match["id"]).to eql('b55c8aba-8a64-4a2d-bee1-ecece8add36e')
         expect(match["status"]).to eql('fulfilled')
       end
     end
