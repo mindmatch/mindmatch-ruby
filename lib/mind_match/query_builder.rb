@@ -18,8 +18,8 @@ module MindMatch
     def to_s
       ''.tap do |s|
         fields.each do |k, v|
-          s << "#{k} {\n"
-          s << v.join("\n")
+          s << "#{k} {"
+          s << join(v)
           s << "}\n"
         end
       end
@@ -28,6 +28,23 @@ module MindMatch
     private
 
     attr_reader :fields
+
+    def join(v)
+      v.each_with_object('') do |f, s|
+        case f
+        when Hash
+          f.each do |key, value|
+            s << "\n" unless s.end_with?("\n")
+            s << "#{key} {"
+            s << join(value)
+            s << "}"
+          end
+        else
+          s << "\n" unless s.end_with?("\n")
+          s << f.to_s
+        end
+      end
+    end
 
     def method_missing(m, *args, &block)
       method = m.to_s
