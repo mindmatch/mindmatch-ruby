@@ -141,6 +141,8 @@ module MindMatch
       {
         refId: position['id'] || position['refId'],
         name: position['name'],
+        location: position['location'],
+        department: position['department'],
         description: position['description'],
         technologies: position['technologies'] || []
       }
@@ -169,7 +171,8 @@ module MindMatch
         resumeUrl: tal['resumeUrl'],
         skills: tal['skills'] || [],
         experienceEntries: tal.fetch('experienceEntries', []).map{|e| e.select{|k, _v| EXP_ENTRY_FIELDS.include?(k) } },
-        educationEntries: tal.fetch('educationEntries', []).map{|e| e.select{|k, _v| EDU_ENTRY_FIELDS.include?(k) } }
+        educationEntries: tal.fetch('educationEntries', []).map{|e| e.select{|k, _v| EDU_ENTRY_FIELDS.include?(k) } },
+        meta: tal['meta']
       }
     end
 

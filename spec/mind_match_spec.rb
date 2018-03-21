@@ -23,7 +23,8 @@ RSpec.describe MindMatch do
         "ruby",
         "elixir",
         "git"
-      ]
+      ],
+      "meta" => {"source" => "Linkedin referral"}
     }]
   }
 
@@ -36,6 +37,8 @@ RSpec.describe MindMatch do
     "positions" => [{
         "id" => 324,
         "name" => "Elixir Frontend Developer",
+        "location" => "Berlin, Berlin, Germany",
+        "department" => "Engineering",
         "technologies" => ["Ruby", "Ruby on Rails", "Elixir", "API"],
         "description" => description
       }]
@@ -45,7 +48,7 @@ RSpec.describe MindMatch do
   describe '#create_match' do
     it 'returns an id for a list of talents & position' do
       VCR.use_cassette("create_match") do
-        expect(mindmatch.create_match(talents: talents, position: position)).to eql('b55c8aba-8a64-4a2d-bee1-ecece8add36e')
+        expect(mindmatch.create_match(talents: talents, position: position)).to eql('c3f4e86d-def5-4565-a65a-656a652b3a54')
       end
     end
 
@@ -54,7 +57,7 @@ RSpec.describe MindMatch do
 
       it 'returns an id for a list of talents & position' do
         VCR.use_cassette("create_match_with_quotes_in_data") do
-          expect(mindmatch.create_match(talents: talents, position: position)).to eql('7428f7c6-05d2-4adb-a431-f6b629e2b685')
+          expect(mindmatch.create_match(talents: talents, position: position)).to eql('8dd04ac4-12dc-4bc0-b75c-7dde033cb6aa')
         end
       end
     end

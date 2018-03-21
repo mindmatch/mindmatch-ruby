@@ -9,12 +9,14 @@ http_interactions:
         {\n          createMatch(\n            input: {\n              companies:
         $companies,\n              people: $people\n            }\n          ) {\n            id\n          }\n        }\n","variables":"{\"companies\":[{\"name\":\"MindMatch
         GmbH\",\"location\":[\"Berlin, Germany\"],\"url\":\"https://mindmatch.ai\",\"profileUrls\":[\"https://github.com/mindmatch\"],\"positions\":[{\"refId\":324,\"name\":\"Elixir
-        Frontend Developer\",\"description\":\"4+ years experience with \\\"Ruby on
-        Rails\\\" and API''s, and elixir JS\",\"technologies\":[\"Ruby\",\"Ruby on
-        Rails\",\"Elixir\",\"API\"]}]}],\"people\":[{\"refId\":2,\"name\":\"Hugo Duksis\",\"location\":null,\"summary\":null,\"email\":\"hd@diaoma.com\",\"profileUrls\":[\"https://linkedin.com/in/duksis\",\"https://github.com/duksis\",\"https://twitter.com/duksis\"],\"resumeUrl\":null,\"skills\":[\"Javascript\",\"ruby\",\"elixir\",\"git\"],\"experienceEntries\":[],\"educationEntries\":[]}]}"}'
+        Frontend Developer\",\"location\":\"Berlin, Berlin, Germany\",\"department\":\"Engineering\",\"description\":\"4+
+        years experience with \\\"Ruby on Rails\\\" and API''s, and elixir JS\",\"technologies\":[\"Ruby\",\"Ruby
+        on Rails\",\"Elixir\",\"API\"]}]}],\"people\":[{\"refId\":2,\"name\":\"Hugo
+        Duksis\",\"location\":null,\"summary\":null,\"email\":\"hd@diaoma.com\",\"profileUrls\":[\"https://linkedin.com/in/duksis\",\"https://github.com/duksis\",\"https://twitter.com/duksis\"],\"resumeUrl\":null,\"skills\":[\"Javascript\",\"ruby\",\"elixir\",\"git\"],\"experienceEntries\":[],\"educationEntries\":[],\"meta\":{\"source\":\"Linkedin
+        referral\"}}]}"}'
     headers:
       Authorization:
-      - Bearer yourtokencomeshere
+      - "<SECRET>"
       Accept:
       - application/json
       Content-Type:
@@ -51,11 +53,11 @@ http_interactions:
       Content-Length:
       - '97'
       Etag:
-      - W/"61-/z5BmtzcVzAtOgZ3ahwnFLRP7zQ"
+      - W/"61-rF76k7bj6M46PMxTYxxnENS7X1s"
       Vary:
       - Accept-Encoding
       Date:
-      - Thu, 02 Nov 2017 16:55:39 GMT
+      - Wed, 21 Mar 2018 15:12:11 GMT
       Via:
       - 1.1 vegur
     body:
@@ -64,10 +66,10 @@ http_interactions:
         {
           "data": {
             "createMatch": {
-              "id": "7428f7c6-05d2-4adb-a431-f6b629e2b685"
+              "id": "8dd04ac4-12dc-4bc0-b75c-7dde033cb6aa"
             }
           }
         }
     http_version: 
-  recorded_at: Thu, 02 Nov 2017 16:55:39 GMT
+  recorded_at: Wed, 21 Mar 2018 15:12:15 GMT
 recorded_with: VCR 3.0.3

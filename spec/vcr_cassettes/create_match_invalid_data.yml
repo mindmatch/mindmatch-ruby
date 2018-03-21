@@ -8,10 +8,10 @@ http_interactions:
       string: '{"query":"        mutation ($companies: [CompanyInput], $people: [PersonInput])
         {\n          createMatch(\n            input: {\n              companies:
         $companies,\n              people: $people\n            }\n          ) {\n            id\n          }\n        }\n","variables":"{\"companies\":[{\"name\":null,\"location\":[null],\"url\":null,\"profileUrls\":[],\"positions\":[]}],\"people\":[{\"refId\":2,\"name\":\"Hugo
-        Duksis\",\"location\":null,\"summary\":null,\"email\":null,\"profileUrls\":[],\"resumeUrl\":null,\"skills\":[\"Javascript\",\"ruby\",\"elixir\",\"git\"],\"experienceEntries\":[],\"educationEntries\":[]}]}"}'
+        Duksis\",\"location\":null,\"summary\":null,\"email\":null,\"profileUrls\":[],\"resumeUrl\":null,\"skills\":[\"Javascript\",\"ruby\",\"elixir\",\"git\"],\"experienceEntries\":[],\"educationEntries\":[],\"meta\":null}]}"}'
     headers:
       Authorization:
-      - Bearer yourtokengoeshere
+      - "<SECRET>"
       Accept:
       - application/json
       Content-Type:
@@ -52,7 +52,7 @@ http_interactions:
       Vary:
       - Accept-Encoding
       Date:
-      - Thu, 02 Nov 2017 16:56:27 GMT
+      - Wed, 21 Mar 2018 15:05:57 GMT
       Via:
       - 1.1 vegur
     body:
@@ -72,5 +72,5 @@ http_interactions:
           ]
         }
     http_version: 
-  recorded_at: Thu, 02 Nov 2017 16:56:27 GMT
+  recorded_at: Wed, 21 Mar 2018 15:06:02 GMT
 recorded_with: VCR 3.0.3
