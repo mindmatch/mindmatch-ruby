@@ -9,7 +9,7 @@ module MindMatch
 
   class Client
     EXP_ENTRY_FIELDS = %w{position description custom_company technologies start_year end_year}.freeze
-    EDU_ENTRY_FIELDS = %{school_name discipline start_year end_year}.freeze
+    EDU_ENTRY_FIELDS = %{school_name degree discipline start_year end_year}.freeze
 
     DEFAULT_ENDPOINT = 'https://api.mindmatch.ai'.freeze
     PATH = '/graphql'.freeze
